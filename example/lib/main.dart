@@ -63,10 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final _items = [
-    BottomNavigationBarItem(icon: Icon(Icons.home), ),
-    BottomNavigationBarItem(icon: Icon(Icons.event), ),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.save_alt)),
+    BottomNavigationBarItem(icon: Icon(Icons.home), label: "Text"),
+    BottomNavigationBarItem(icon: Icon(Icons.event), label: "Text2"),
+    BottomNavigationBarItem(icon: Icon(Icons.save_alt), label: "Text3"),
   ];
 }
 
