@@ -1,6 +1,6 @@
 # Custom navigator
 
-Null Safetly Added.
+## Null Safety Added. ##
 
 A flutter package that makes it easy to create your own navigator
 anywhere in the widget tree.
