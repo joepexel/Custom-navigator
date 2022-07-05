@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 /// so you need the navigation to be handled not by the default "App Navigator" but by this widget.
 class CustomNavigator extends StatefulWidget {
   /// {@macro flutter.widgets.widgetsApp.navigatorKey}
-  final GlobalKey<NavigatorState> navigatorKey;
+  final GlobalKey<NavigatorState>? navigatorKey;
 
   /// {@macro flutter.widgets.widgetsApp.initialRoute}
-  final String initialRoute;
+  final String? initialRoute;
 
-  final RouteFactory onGenerateRoute;
+  final RouteFactory? onGenerateRoute;
 
   /// The application's top-level routing table.
   ///
@@ -30,19 +30,19 @@ class CustomNavigator extends StatefulWidget {
   ///
   /// This callback can be used, for example, to specify that a [MaterialPageRoute]
   /// or a [CupertinoPageRoute] should be used for building page transitions.
-  final PageRouteFactory pageRoute;
+  final PageRouteFactory? pageRoute;
 
   /// @macro flutter.widgets.widgetsApp.home
-  final Widget home;
+  final Widget? home;
 
   /// {@macro flutter.widgets.widgetsApp.onUnknownRoute}
-  final RouteFactory onUnknownRoute;
+  final RouteFactory? onUnknownRoute;
 
   /// {@macro flutter.widgets.widgetsApp.navigatorObservers}
   final List<NavigatorObserver> navigatorObservers;
 
   const CustomNavigator({
-    Key key,
+    Key? key,
     this.navigatorKey,
     this.initialRoute,
     this.onGenerateRoute,
@@ -59,7 +59,7 @@ class CustomNavigator extends StatefulWidget {
 
 class _CustomNavigatorState extends State<CustomNavigator>
     implements WidgetsBindingObserver {
-  GlobalKey<NavigatorState> _navigator;
+  GlobalKey<NavigatorState>? _navigator;
 
   void _setNavigator() =>
       _navigator = widget.navigatorKey ?? GlobalObjectKey<NavigatorState>(this);
@@ -90,13 +90,18 @@ class _CustomNavigatorState extends State<CustomNavigator>
   }
 
   @override
+  Future<bool> didPushRouteInformation(RouteInformation routeInformation) {
+    return didPushRoute(routeInformation.location);
+  }  
+
+  @override
   void didChangeAccessibilityFeatures() => setState(() {});
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {}
 
   @override
-  void didChangeLocales(List<Locale> locale) {}
+  void didChangeLocales(List<Locale>? locale) {}
 
   @override
   void didChangeMetrics() {}
@@ -114,33 +119,33 @@ class _CustomNavigatorState extends State<CustomNavigator>
   @override
   Future<bool> didPopRoute() async {
     assert(mounted);
-    final NavigatorState navigator = _navigator?.currentState;
+    final NavigatorState? navigator = _navigator?.currentState;
     if (navigator == null) return false;
     return await navigator.maybePop();
   }
 
   @override
-  Future<bool> didPushRoute(String route) async {
+  Future<bool> didPushRoute(String? route) async {
     assert(mounted);
-    final NavigatorState navigator = _navigator?.currentState;
+    final NavigatorState? navigator = _navigator?.currentState;
     if (navigator == null) return false;
-    navigator.pushNamed(route);
+    navigator.pushNamed(route!);
     return true;
   }
 
-  Route<dynamic> _onGenerateRoute(RouteSettings settings) {
-    final String name = settings.name;
-    final WidgetBuilder pageContentBuilder =
+  Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
+    final String? name = settings.name;
+    final WidgetBuilder? pageContentBuilder =
     name == Navigator.defaultRouteName && widget.home != null
-        ? (BuildContext context) => widget.home
-        : widget.routes[name];
+        ? (BuildContext context) => widget.home!
+        : widget.routes[name!];
 
     if (pageContentBuilder != null) {
       assert(
       widget.pageRoute != null,
       'The default onGenerateRoute handler for CustomNavigator must have a '
           'pageRoute set if the home or routes properties are set.');
-      final Route<dynamic> route = widget.pageRoute<dynamic>(
+      final Route<dynamic> route = widget.pageRoute!<dynamic>(
         settings,
         pageContentBuilder,
       );
@@ -148,11 +153,11 @@ class _CustomNavigatorState extends State<CustomNavigator>
       'The pageRouteBuilder for CustomNavigator must return a valid non-null Route.');
       return route;
     }
-    if (widget.onGenerateRoute != null) return widget.onGenerateRoute(settings);
+    if (widget.onGenerateRoute != null) return widget.onGenerateRoute!(settings);
     return null;
   }
 
-  Route<dynamic> _onUnknownRoute(RouteSettings settings) {
+  Route<dynamic>? _onUnknownRoute(RouteSettings settings) {
     assert(() {
       if (widget.onUnknownRoute == null) {
         throw FlutterError(
@@ -168,7 +173,7 @@ class _CustomNavigatorState extends State<CustomNavigator>
       }
       return true;
     }());
-    final Route<dynamic> result = widget.onUnknownRoute(settings);
+    final Route<dynamic>? result = widget.onUnknownRoute!(settings);
     assert(() {
       if (result == null) {
         throw FlutterError('The onUnknownRoute callback returned null.\n'
@@ -184,9 +189,9 @@ class _CustomNavigatorState extends State<CustomNavigator>
 
 class PageRoutes {
   static final materialPageRoute =
-  <T>(RouteSettings settings, WidgetBuilder builder) =>
-      MaterialPageRoute<T>(settings: settings, builder: builder);
+  (<T>(RouteSettings settings, WidgetBuilder builder) =>
+      MaterialPageRoute<T>(settings: settings, builder: builder)) as MaterialPageRoute<T> Function<T>(RouteSettings, Widget Function(BuildContext));
   static final cupertinoPageRoute =
-  <T>(RouteSettings settings, WidgetBuilder builder) =>
-      CupertinoPageRoute<T>(settings: settings, builder: builder);
+  (<T>(RouteSettings settings, WidgetBuilder builder) =>
+      CupertinoPageRoute<T>(settings: settings, builder: builder)) as CupertinoPageRoute<T> Function<T>(RouteSettings, Widget Function(BuildContext));
 }
