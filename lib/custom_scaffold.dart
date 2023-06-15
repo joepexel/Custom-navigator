@@ -83,7 +83,8 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   _bottomNavBar() {
     assert(widget.scaffold.bottomNavigationBar != null);
 
-    BottomNavigationBar b = widget.scaffold.bottomNavigationBar as BottomNavigationBar;
+    BottomNavigationBar b =
+        widget.scaffold.bottomNavigationBar as BottomNavigationBar;
     return BottomNavigationBar(
       key: b.key,
       items: b.items,

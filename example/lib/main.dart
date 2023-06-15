@@ -90,7 +90,6 @@ class Page extends StatelessWidget {
       .push(MaterialPageRoute(builder: (context) => DetailsPage(title)));
 
 //  _openDetailsPage(BuildContext context) => mainNavigatorKey.currentState.push(MaterialPageRoute(builder: (context) => DetailsPage(title)));
-
 }
 
 class DetailsPage extends StatelessWidget {

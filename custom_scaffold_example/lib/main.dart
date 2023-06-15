@@ -63,10 +63,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final _items = [
-    BottomNavigationBarItem(icon: Icon(Icons.home), ),
-    BottomNavigationBarItem(icon: Icon(Icons.event), ),
     BottomNavigationBarItem(
-        icon: Icon(Icons.save_alt), ),
+      icon: Icon(Icons.home),
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.event),
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.save_alt),
+    ),
   ];
 }
 
@@ -96,7 +101,6 @@ class Page extends StatelessWidget {
       .push(MaterialPageRoute(builder: (context) => DetailsPage(title)));
 
 //  _openDetailsPage(BuildContext context) => mainNavigatorKey.currentState.push(MaterialPageRoute(builder: (context) => DetailsPage(title)));
-
 }
 
 class DetailsPage extends StatelessWidget {
