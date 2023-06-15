@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onTap: (index) {
           // here we used the navigator key to pop the stack to get back to our
           // main page
-          navigatorKey.currentState.maybePop();
+          navigatorKey.currentState!.maybePop();
           setState(() => _page = Page('Page $index'));
           _currentIndex = index;
         },
@@ -80,7 +80,7 @@ class Page extends StatelessWidget {
 
     return Container(
       child: Center(
-          child: FlatButton(
+          child: TextButton(
               onPressed: () => _openDetailsPage(context), child: text)),
     );
   }

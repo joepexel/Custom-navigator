@@ -1,4 +1,6 @@
 
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -184,6 +186,12 @@ class _CustomNavigatorState extends State<CustomNavigator>
       return true;
     }());
     return result;
+  }
+
+  @override
+  Future<AppExitResponse> didRequestAppExit() {
+    // TODO: implement didRequestAppExit
+    throw UnimplementedError();
   }
 }
 

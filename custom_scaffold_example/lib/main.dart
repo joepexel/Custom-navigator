@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -82,7 +82,7 @@ class Page extends StatelessWidget {
     return Scaffold(
       body: Container(
         child: Center(
-            child: FlatButton(
+            child: TextButton(
                 onPressed: () => _openDetailsPage(context), child: text)),
       ),
       appBar: AppBar(
