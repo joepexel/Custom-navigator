@@ -59,11 +59,15 @@ class _CustomScaffoldState extends State<CustomScaffold> {
       bottomNavigationBar: _bottomNavBar(),
       backgroundColor: widget.scaffold.backgroundColor,
       bottomSheet: widget.scaffold.bottomSheet,
-      body: CustomNavigator(
-        navigatorKey: _key,
-        home: widget.children[_index],
-        pageRoute: PageRoutes.materialPageRoute,
-      ),
+      // body: CustomNavigator(
+      //   navigatorKey: _key,
+      //   home: widget.children[_index],
+      //   pageRoute: PageRoutes.materialPageRoute,
+      // ),
+      body: IndexedStack(
+          index: _selectedIndex,
+          children: _pages,
+        ),
       drawer: widget.scaffold.drawer,
       drawerDragStartBehavior: widget.scaffold.drawerDragStartBehavior,
       drawerScrimColor: widget.scaffold.drawerScrimColor,
